@@ -29,12 +29,6 @@ bot.onText(/\/checkEmotion/, (msg) => {
   // predict(bot, msg);
 });
 
-const isContains = async (msg, username) => {
-  username = `@${username}`;
-  console.log(username);
-
-  return msg.text.includes(username);
-};
 
 bot.onText(/\/command/, (msg) => {
   command(bot, msg);
