@@ -17,6 +17,13 @@ const predict = async (bot, msg) => {
     );
 
     await sendMessage(bot, msg.chat.id, `The emotion is ${res.data.emotion}`);
+    if (res.data.emotion !== "joy" || res.data.emotion !== "happy") {
+      await sendMessage(
+        bot,
+        msg.chat.id,
+        `Do you want to cheer you mood by reading some jokes? \n Press /joke`
+      );
+    }
     sendMessage(bot, msg.chat.id, "Want to try more? Press /checkEmotion");
   } catch (error) {
     console.log(error);

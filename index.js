@@ -26,7 +26,6 @@ bot.onText(/\/help/, (msg) => {
 bot.onText(/\/checkemotion/, (msg) => {
   prediction = true;
   sendMessage(bot, msg.chat.id, "Enter the text you want to check");
-  // predict(bot, msg);
 });
 
 bot.onText(/\/command/, (msg) => {
@@ -35,7 +34,6 @@ bot.onText(/\/command/, (msg) => {
 
 bot.onText(/\/joke/, async (msg) => {
   const res = await axios.get("https://v2.jokeapi.dev/joke/Any");
-  console.log(res.data);
   await sendMessage(bot, msg.chat.id, `The Category is ${res.data.category}`);
   if (res.data.type === "twopart") {
     sendMessage(
@@ -53,12 +51,13 @@ bot.on("message", (msg) => {
 
   if (prediction) {
     predict(bot, msg);
+    prediction = false;
   } else {
     if (
       msg.text !== "/start" &&
       msg.text !== "/command" &&
       msg.text !== "/help" &&
-      msg.text !== "/checkEmotion" &&
+      msg.text !== "/checkemotion" &&
       msg.text !== "/joke"
     ) {
       prediction = false;
