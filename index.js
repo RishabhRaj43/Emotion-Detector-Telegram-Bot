@@ -23,15 +23,29 @@ bot.onText(/\/help/, (msg) => {
   command(bot, msg);
 });
 
-bot.onText(/\/checkEmotion/, (msg) => {
+bot.onText(/\/checkemotion/, (msg) => {
   prediction = true;
   sendMessage(bot, msg.chat.id, "Enter the text you want to check");
   // predict(bot, msg);
 });
 
-
 bot.onText(/\/command/, (msg) => {
   command(bot, msg);
+});
+
+bot.onText(/\/joke/, async (msg) => {
+  const res = await axios.get("https://v2.jokeapi.dev/joke/Any");
+  console.log(res.data);
+  await sendMessage(bot, msg.chat.id, `The Category is ${res.data.category}`);
+  if (res.data.type === "twopart") {
+    sendMessage(
+      bot,
+      msg.chat.id,
+      `The joke is \n ${res.data.setup} \n ${res.data.delivery}`
+    );
+  } else {
+    sendMessage(bot, msg.chat.id, `The joke is \n ${res.data.joke}`);
+  }
 });
 
 bot.on("message", (msg) => {
@@ -44,7 +58,8 @@ bot.on("message", (msg) => {
       msg.text !== "/start" &&
       msg.text !== "/command" &&
       msg.text !== "/help" &&
-      msg.text !== "/checkEmotion"
+      msg.text !== "/checkEmotion" &&
+      msg.text !== "/joke"
     ) {
       prediction = false;
       sendMessage(bot, chat_id, "Sorry I can't reply to other messages");

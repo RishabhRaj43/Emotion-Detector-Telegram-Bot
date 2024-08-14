@@ -5,7 +5,7 @@ const command = (bot,msg) => {
 
   const options = {
     reply_markup: JSON.stringify({
-      keyboard: [["/start", "/help"], ["/command","/checkEmotion"]],
+      keyboard: [["/start", "/help"], ["/command","/checkEmotion","/joke"]],
       resize_keyboard: true,
       one_time_keyboard: true, // Keyboard disappears after selection
     }),
